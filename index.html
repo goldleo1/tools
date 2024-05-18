@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <main>
+        <div id="inputBox">
+            <textarea name="" id="input" placeholder="Input your ida data here"></textarea>
+        </div>
+        <div id="convertBox">
+            <!-- <div id="selectType">
+                <div id="python" class="">
+                    <input type="checkbox" name="python" id="_python" class="_none">
+                    <label for="_python">Python</label>
+                </div>
+                <div id="javascript" class="">
+                    <input type="checkbox" name="javascript" id="_javascript" class="_none">
+                    <label for="_javascript">Javascript</label>
+                </div>
+                <div id="c" class="">
+                    <input type="checkbox" name="c" id="_c" class="_none">
+                    <label for="_c">c/c++</label>
+                </div>
+            </div> -->
+            <button id="converBtn">CONVERT</button>
+        </div>
+        <div id="outputBox">
+            <h1>Python <span class="copy" id="python_copy" title="복사">📄</span></h1> 
+            <div id="python_output">
+            </div>
+            <h1>C/C++ <span class="copy" id="c_copy" title="복사">📄</span></h1> 
+            <div id="c_output">
+            </div>
+        </div>
+    </main>
+    <script src="./ida_parsing.js"></script>
+    <script>
+        const copyBtns =  document.getElementsByClassName('copy')
+        Array.from(copyBtns).forEach((copyBtn)=>{
+            copyBtn.addEventListener('click',(e)=>{
+                const key = e.target.id.split('_')[0] + '_output'
+                console.log(window[key].innerText)
+                navigator.clipboard.writeText(window[key].innerText)
+            })
+        })
+
+        function convert() {
+            const format = new Format(input.value);
+            c_output.innerText = format.c()
+            python_output.innerText = format.python()
+        }
+
+        const convertBtn = document.getElementById('converBtn')
+        convertBtn.addEventListener('click', convert)
+
+        const input = document.getElementById('input')
+        const python_output = document.getElementById('python_output')
+        const c_output = document.getElementById('c_output')
+        
+        const selectType = document.querySelector('#outputBox #selectType')
+        
+        input.addEventListener('paste', (e)=>{
+            setTimeout(convert, 0) // 데이터가 복사되기 전에 작동하는 거 방지
+        })
+    </script>
+    <script src="./animation.js"></script>
+</body>
+</html>
