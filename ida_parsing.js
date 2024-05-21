@@ -24,7 +24,8 @@ class Format {
     let tmpData = [];
 
     data.split("\n").forEach((element) => {
-      const tmp = element.match(/[a-zA-Z0-9]+ dup\([0-9]*\)|db.*$/g);
+      const tmp = element.match(/db [^;]*/g);
+      console.log(tmp);
       if (tmp) tmpData.push(tmp[0].slice(3, tmp[0].length));
     });
     tmpData = tmpData.join(",");
